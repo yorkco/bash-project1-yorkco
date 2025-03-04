@@ -16,11 +16,8 @@ if [[ $# -eq 0 || "$1" == "-h" ]]; then
     display_usage
     exit 0
 fi
-elif [[ "$1" == "-l" ]]; then
-    echo " The Acceptable Fonts are: C059-BdIta, C059-Bold, C059-Italic, C059-Roman, D050000L, NimbusMonoPS-Bold,
-NimbusMonoPS-BoldItalic, NimbusMonoPS-Italic, NimbusMonoPS-Regular, NimbusRoman-Bold, NimbusRoman-BoldItalic, NimbusRoman-Italic, NimbusRoman-Regular,
-NimbusSans-Bold, NimbusSans-BoldItalic, NimbusSans-Italic, NimbusSansNarrow-Bold, NimbusSansNarrow-BoldOblique, NimbusSansNarrow-Oblique, NimbusSansNarrow-Regular, NimbusSans-Regular,
-P052-Bold, P052-BoldItalic, P052-Italic, P052-Roman, StandardSymbolsPS, URWBookman-Demi, URWBookman-DemiItalic, URWBookman-Light, URWBookman-LightItalic, URWGothic-Book, URWGothic-BookOblique, URWGothic-Demi, URWGothic-DemiOblique, Z003-MediumItalic"
+if [[ "$1" == "-l" ]]; then
+    echo " The Acceptable Fonts are: C059-BdIta, C059-Bold, C059-Italic, C059-Roman, D050000L, NimbusMonoPS-Bold, NimbusMonoPS-BoldItalic, NimbusMonoPS-Italic, NimbusMonoPS-Regular, NimbusRoman-Bold, NimbusRoman-BoldItalic, NimbusRoman-Italic, NimbusRoman-Regular, NimbusSans-Bold, NimbusSans-BoldItalic, NimbusSans-Italic, NimbusSansNarrow-Bold, NimbusSansNarrow-BoldOblique, NimbusSansNarrow-Oblique, NimbusSansNarrow-Regular, NimbusSans-Regular, P052-Bold, P052-BoldItalic, P052-Italic, P052-Roman, StandardSymbolsPS, URWBookman-Demi, URWBookman-DemiItalic, URWBookman-Light, URWBookman-LightItalic, URWGothic-Book, URWGothic-BookOblique, URWGothic-Demi, URWGothic-DemiOblique, Z003-MediumItalic"
     exit 0
 fi
 # Initialize variables
@@ -46,10 +43,7 @@ while getopts ":n:o:f:s:l:h" opt; do
         ;;
         l) # option l
             # display fonts and exit
-            echo " The Acceptable Fonts are: C059-BdIta, C059-Bold, C059-Italic, C059-Roman, D050000L, NimbusMonoPS-Bold,
-NimbusMonoPS-BoldItalic, NimbusMonoPS-Italic, NimbusMonoPS-Regular, NimbusRoman-Bold, NimbusRoman-BoldItalic, NimbusRoman-Italic, NimbusRoman-Regular,
-NimbusSans-Bold, NimbusSans-BoldItalic, NimbusSans-Italic, NimbusSansNarrow-Bold, NimbusSansNarrow-BoldOblique, NimbusSansNarrow-Oblique, NimbusSansNarrow-Regular, NimbusSans-Regular,
-P052-Bold, P052-BoldItalic, P052-Italic, P052-Roman, StandardSymbolsPS, URWBookman-Demi, URWBookman-DemiItalic, URWBookman-Light, URWBookman-LightItalic, URWGothic-Book, URWGothic-BookOblique, URWGothic-Demi, URWGothic-DemiOblique, Z003-MediumItalic"
+            echo " The Acceptable Fonts are: C059-BdIta, C059-Bold, C059-Italic, C059-Roman, D050000L, NimbusMonoPS-Bold, NimbusMonoPS-BoldItalic, NimbusMonoPS-Italic, NimbusMonoPS-Regular, NimbusRoman-Bold, NimbusRoman-BoldItalic, NimbusRoman-Italic, NimbusRoman-Regular, NimbusSans-Bold, NimbusSans-BoldItalic, NimbusSans-Italic, NimbusSansNarrow-Bold, NimbusSansNarrow-BoldOblique, NimbusSansNarrow-Oblique, NimbusSansNarrow-Regular, NimbusSans-Regular, P052-Bold, P052-BoldItalic, P052-Italic, P052-Roman, StandardSymbolsPS, URWBookman-Demi, URWBookman-DemiItalic, URWBookman-Light, URWBookman-LightItalic, URWGothic-Book, URWGothic-BookOblique, URWGothic-Demi, URWGothic-DemiOblique, Z003-MediumItalic"
             exit 0
         ;;
         h) # option h
@@ -73,7 +67,7 @@ P052-Bold, P052-BoldItalic, P052-Italic, P052-Roman, StandardSymbolsPS, URWBookm
 done
 
 # Check if all required switches are provided
-    if [[ -z $filename || -z $output || -z $fontname || -z $fontsize ]]; then
+    if [[ -z "$filename" || -z "$output" || -z "$fontname" || -z "$fontsize" ]]; then
         echo "Error: Missing required options."
         # display usage and exit
         display_usage
@@ -81,33 +75,40 @@ done
     fi
 
 # Check if the specified input filename exists and is a regular file
-    if [[ ! -f $filename ]]; then
+    if [[ ! -f "$filename" ]]; then
         echo "Error: Input file '$filename' does not exist or is not a regular file."
         # exit
         exit 1
     fi
 
 # Check if input file is a PDF file
-    if [[ ! "$filename" == "*.pdf" ]]
+    if [[ ! "$filename" =~ \.pdf$ ]]; then
         echo "Error: Input file '$filename' is not a PDF file."
         # exit
         exit 1
     fi
 
 # Check if the specified output directory exists and is a directory
-    if [[ ! -d $output ]]; then
+    if [[ ! -d "$output" ]]; then
         echo "Error: Output directory '$output' does not exist."
         # exit
         exit 1
     fi
 
 # Check if the specified fontsize is an integer
-    if [[ ! $fontsize =~ ^[0-9]+$ ]]; then
+    if [[ ! "$fontsize" =~ ^[0-9]+$ ]]; then
         echo "Error: Font size must be a number."
         # exit
         exit 1
     fi
 
-    elif
-        gs -sDEVICE=pdfwrite -o $output/output.pdf -c "/$fontname findfont $fontsize scalefont setfont" -f $filename
+    gs -sDEVICE=pdfwrite -o "$output/output.pdf" -c "/$fontname findfont $fontsize scalefont setfont" -f "$filename"
+    
+    if [ $? -eq 0 ]; then
+        echo "Font changed successfully. Output saved to '$output_pdf'."
+    else
+        echo "Error: Failed to change font."
+        exit 1
     fi
+
+    exit 0
