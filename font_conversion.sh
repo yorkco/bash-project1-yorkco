@@ -102,17 +102,13 @@ done
         exit 1
     fi
 
-echo "Ghostscript command: gs -sDEVICE=pdfwrite -o '$output/output.pdf' -dPDFSETTINGS=/prepress -dEmbedAllFonts=true -c '/$fontname findfont $fontsize scalefont setfont' -f '$filename'"
+    gs -sDEVICE=pdfwrite -o "$output/output.pdf" -dPDFSETTINGS=/prepress -dEmbedAllFonts=true -c "/$fontname findfont $fontsize scalefont setfont" -f "$filename"
+    
+    if [ $? -eq 0 ]; then
+        echo "Font changed successfully. Output saved to '$output'."
+    else
+        echo "Error: Failed to change font."
+        exit 1
+    fi
 
-gs -sDEVICE=pdfwrite -o "$output/output.pdf" -dPDFSETTINGS=/prepress -dEmbedAllFonts=true -c "/$fontname findfont $fontsize scalefont setfont" -f "$filename" 2>&1
-
-if [ $? -eq 0 ]; then
-    echo "Font changed successfully. Output saved to '$output/output.pdf'."
-else
-    echo "Error: Failed to change font."
-    echo "Ghostscript error output:"
-    echo "$gs_output"
-    exit 1
-fi
-
-exit 0
+    exit 0
