@@ -102,13 +102,8 @@ done
         exit 1
     fi
 
-    gs -sDEVICE=pdfwrite -o "$output/output.pdf" -dPDFSETTINGS=/prepress -dEmbedAllFonts=true -c "/$fontname findfont $fontsize scalefont setfont" -f "$filename"
-    
-    if [ $? -eq 0 ]; then
-        echo "Font changed successfully. Output saved to '$output'."
-    else
-        echo "Error: Failed to change font."
-        exit 1
-    fi
+    pdftotext "$filename" temp.txt
+
+    pandoc temp.txt -o "$output/output.pdf" --pdf-engine=xelatex -V mainfont"$fontname" -V fontsize="'$fontsize'+'pt'"
 
     exit 0
