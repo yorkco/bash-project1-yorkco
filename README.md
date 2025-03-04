@@ -35,3 +35,6 @@ Options:
   -h: Display this help information.
 
   -l: Display the list of acceptable fonts.
+
+
+  I included a pdf of my resume as test pdf.
