@@ -104,6 +104,8 @@ done
 
     pdftotext "$filename" temp.txt
 
-    pandoc temp.txt -o "$output/output.pdf" --pdf-engine=xelatex -V mainfont"$fontname" -V fontsize="'$fontsize'+'pt'"
+    pandoc temp.txt -o "$output/output.pdf" --pdf-engine=xelatex -V mainfont"$fontname" -V fontsize="$fontsize"
+
+    rm temp.txt
 
     exit 0
