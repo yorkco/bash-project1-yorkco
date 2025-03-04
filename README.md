@@ -7,6 +7,8 @@ NOW YOU CAN!</h2>
 
 This script currently does not work but I swear on my life I will make it work if it's the last thing that I do.
 
+<h2>**EDIT IT FINALLY WORKS!**</h2>
+
 ---
 
 <h3>Necessary Downloads:</h3>
