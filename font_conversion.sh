@@ -16,7 +16,13 @@ if [[ $# -eq 0 || "$1" == "-h" ]]; then
     display_usage
     exit 0
 fi
-
+elif [[ "$1" == "-l" ]]; then
+    echo " The Acceptable Fonts are: C059-BdIta, C059-Bold, C059-Italic, C059-Roman, D050000L, NimbusMonoPS-Bold,
+NimbusMonoPS-BoldItalic, NimbusMonoPS-Italic, NimbusMonoPS-Regular, NimbusRoman-Bold, NimbusRoman-BoldItalic, NimbusRoman-Italic, NimbusRoman-Regular,
+NimbusSans-Bold, NimbusSans-BoldItalic, NimbusSans-Italic, NimbusSansNarrow-Bold, NimbusSansNarrow-BoldOblique, NimbusSansNarrow-Oblique, NimbusSansNarrow-Regular, NimbusSans-Regular,
+P052-Bold, P052-BoldItalic, P052-Italic, P052-Roman, StandardSymbolsPS, URWBookman-Demi, URWBookman-DemiItalic, URWBookman-Light, URWBookman-LightItalic, URWGothic-Book, URWGothic-BookOblique, URWGothic-Demi, URWGothic-DemiOblique, Z003-MediumItalic"
+    exit 0
+fi
 # Initialize variables
 filename=""
 output=""
