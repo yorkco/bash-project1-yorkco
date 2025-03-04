@@ -10,41 +10,7 @@ function display_usage() {
   echo "  -f <fontname>: Specify the Font to be converted to."
   echo "  -s <fontsize>: Specify the font size to be scaled to."
   echo "  -h: Display this help information."
-  echo "C059-BdIta
-C059-Bold
-C059-Italic
-C059-Roman
-D050000L
-NimbusMonoPS-Bold
-NimbusMonoPS-BoldItalic
-NimbusMonoPS-Italic
-NimbusMonoPS-Regular
-NimbusRoman-Bold
-NimbusRoman-BoldItalic
-NimbusRoman-Italic
-NimbusRoman-Regular
-NimbusSans-Bold
-NimbusSans-BoldItalic
-NimbusSans-Italic
-NimbusSansNarrow-Bold
-NimbusSansNarrow-BoldOblique
-NimbusSansNarrow-Oblique
-NimbusSansNarrow-Regular
-NimbusSans-Regular
-P052-Bold
-P052-BoldItalic
-P052-Italic
-P052-Roman
-StandardSymbolsPS
-URWBookman-Demi
-URWBookman-DemiItalic
-URWBookman-Light
-URWBookman-LightItalic
-URWGothic-Book
-URWGothic-BookOblique
-URWGothic-Demi
-URWGothic-DemiOblique
-Z003-MediumItalic"
+  echo "  -l: Display the list of acceptable fonts."
 }
 if [[ $# -eq 0 || "$1" == "-h" ]]; then
     display_usage
@@ -55,10 +21,10 @@ fi
 filename=""
 output=""
 fontname=""
-fontsize=
+fontsize=""
 
 # Process command-line options and arguments
-while getopts ":n:o:f:s:h" opt; do
+while getopts ":n:o:f:s:l:h" opt; do
     case $opt in
         n) # option f
             filename=$OPTARG
@@ -71,6 +37,14 @@ while getopts ":n:o:f:s:h" opt; do
         ;;
         s) # option s
             fontsize=$OPTARG
+        ;;
+        l) # option l
+            # display fonts and exit
+            echo " The Acceptable Fonts are: C059-BdIta, C059-Bold, C059-Italic, C059-Roman, D050000L, NimbusMonoPS-Bold,
+NimbusMonoPS-BoldItalic, NimbusMonoPS-Italic, NimbusMonoPS-Regular, NimbusRoman-Bold, NimbusRoman-BoldItalic, NimbusRoman-Italic, NimbusRoman-Regular,
+NimbusSans-Bold, NimbusSans-BoldItalic, NimbusSans-Italic, NimbusSansNarrow-Bold, NimbusSansNarrow-BoldOblique, NimbusSansNarrow-Oblique, NimbusSansNarrow-Regular, NimbusSans-Regular,
+P052-Bold, P052-BoldItalic, P052-Italic, P052-Roman, StandardSymbolsPS, URWBookman-Demi, URWBookman-DemiItalic, URWBookman-Light, URWBookman-LightItalic, URWGothic-Book, URWGothic-BookOblique, URWGothic-Demi, URWGothic-DemiOblique, Z003-MediumItalic"
+            exit 0
         ;;
         h) # option h
             # display usage and exit
@@ -129,6 +103,5 @@ done
     fi
 
     elif
-        gs -sDEVICE=pdfwrite -o $output/$filename -c "/$fontname findfont $fontsize scalefont setfont" -f $filename
-
+        gs -sDEVICE=pdfwrite -o $output/output.pdf -c "/$fontname findfont $fontsize scalefont setfont" -f $filename
     fi
