@@ -8,7 +8,7 @@ function display_usage() {
   echo "  -n <filename>: Specify the input filename."
   echo "  -o <output>: Specify the output directory where the results will be stored."
   echo "  -f <fontname>: Specify the Font to be converted to."
-  echo "  -s <fontsize>: Specify the font size to be scaled to."
+  echo "  -s <fontsize>: Specify the font size to be set written in pts. EX: 12pt"
   echo "  -h: Display this help information."
   echo "  -l: Display the list of acceptable fonts."
 }
@@ -96,15 +96,15 @@ done
     fi
 
 # Check if the specified fontsize is an integer
-    if [[ ! "$fontsize" =~ ^[0-9]+$ ]]; then
-        echo "Error: Font size must be a number."
+    if [[ ! "$fontsize" =~ ^[0-9]+pt$ ]]; then
+        echo "Error: Font size must be in the form of #pt. Example: -s 12pt"
         # exit
         exit 1
     fi
 
     pdftotext "$filename" temp.txt
 
-    pandoc --pdf-engine=xelatex --variable=mainfont=$fontname temp.txt -o $output/output.pdf
+    pandoc --pdf-engine=xelatex --preserve-tabs --variable=documentclass=scratcl --variable=mainfont=$fontname --variable=fontsize=$fontsize temp.txt -o $output/output.pdf
 
     rm temp.txt
 

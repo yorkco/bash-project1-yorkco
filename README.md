@@ -3,20 +3,15 @@
 <h2>Ever wanted to convert your PDF document's font to a different one in the most difficult way possible?
 NOW YOU CAN!</h2>
 
-
-
-This script currently does not work but I swear on my life I will make it work if it's the last thing that I do.
-
-<h2>**EDIT IT FINALLY WORKS!**</h2>
-
+This Script works in an Ubuntu WSL
 ---
 
 <h3>Necessary Downloads:</h3>
 
-1. Xelatex
-2. poppler-utils
-3. pandoc
-4. Any prereqs for the other items
+1. Ubuntu WSL (Everything else must be installed within the Ubuntu WSL)
+2. Xelatex (sudo apt-get install texlive-xetex)
+3. poppler-utils (sudo apt-get install poppler-utils)
+4. pandoc (sudo apt-get install pandoc)
 
 <h2>Script Operation:</h2>
 
@@ -30,11 +25,12 @@ Options:
 
   -f \<fontname>: Specify the Font to be converted to.
 
-  -s \<fontsize>: Specify the font size to be scaled to.
+  -s \<fontsize>: Specify the font size to be set written in pts. EX: 12pt
 
   -h: Display this help information.
 
   -l: Display the list of acceptable fonts.
 
-
-  I included a pdf of my resume as test pdf.
+---
+<h3>Additonal file</h3>
+I included a pdf of my resume as a test pdf 
