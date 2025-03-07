@@ -15,7 +15,7 @@ This Script works in an Ubuntu WSL
 
 <h2>Script Operation:</h2>
 
-Usage: $scriptname -n <filename> -o <output> -f <fontname> -s <fontsize>
+ ./font_conversion.sh -n \<filename> -o \<output> -f \<fontname> -s \<fontsize>
 
 Options:
 
